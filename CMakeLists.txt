@@ -1,0 +1,6 @@
+# cmake_minimum_required(VERSION <specify CMake version here>)
+project(Roguelike)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(Roguelike main.cpp headers/moving_characters/knight.cpp headers/moving_characters/knight.h headers/map.cpp headers/map.h headers/game_loop.cpp headers/game_loop.h headers/helpers/loader.cpp headers/helpers/loader.h headers/helpers/direction.cpp headers/helpers/direction.h headers/helpers/point.cpp headers/helpers/point.h headers/game_object.cpp headers/game_object.h headers/moving_characters/moving_character.cpp headers/moving_characters/moving_character.h headers/moving_characters/enemy.cpp headers/moving_characters/enemy.h headers/moving_characters/zombie.cpp headers/moving_characters/zombie.h headers/moving_characters/dragon.cpp headers/moving_characters/dragon.h headers/moving_characters/projectile.cpp headers/moving_characters/projectile.h headers/not_moving_characters/wall.cpp headers/not_moving_characters/wall.h headers/not_moving_characters/aidkit.cpp headers/not_moving_characters/aidkit.h headers/not_moving_characters/princess.cpp headers/not_moving_characters/princess.h headers/helpers/game_states.h)
