@@ -5,6 +5,8 @@
 #include "map.h"
 
 void Map::Load() {
+  state_ = GameStates::ALIVE;
+
   Loader loader;
 
   auto map = loader.LoadMap();
@@ -14,11 +16,11 @@ void Map::Load() {
   InitializeCharacters(map);
 }
 
-unsigned int Map::GetRows() const {
+int Map::GetRows() const {
   return rows_;
 }
 
-unsigned int Map::GetCols() const {
+int Map::GetCols() const {
   return cols_;
 }
 
@@ -53,7 +55,8 @@ void Map::Update() {
         original_map_.erase(prev_pos);
       }
 
-      if (EndGame(knight_->GetState())) {
+      if (knight_->GetState() != GameStates::ALIVE) {
+        state_ = knight_->GetState();
         break;
       }
 
@@ -161,56 +164,8 @@ void Map::InitializeCharacters(std::vector<std::vector<char>> map) {
   }
 }
 
-bool Map::EndGame(int state) const {
-  switch(state) {
-    case ALIVE:
-      return false;
-      break;
-    case DEAD:
-      std::cout << "you died";
-      return true;
-      break;
-    case WINNER:
-      std::cout << "you won the game!";
-      return true;
-      break;
-    default:
-      break;
-  }
-
-  return false;
-}
-
-void Map::MoveGameObjects(const std::pair<std::shared_ptr<GameObject>, Point>& obj) {
-  /*auto prev_pos = obj.first->GetPosition();
-  auto new_pos = obj.first->Move(original_map_, Point(rows_, cols_));
-
-  if (prev_pos == new_pos) {
-    return;
-  }
-
-  if (original_map_.count(new_pos) == 0) {
-    original_map_[new_pos] = original_map_[prev_pos];
-    original_map_.erase(prev_pos);
-  }
-  else {
-    auto collide_with = original_map_[new_pos];
-    obj.first->Collide(*collide_with, original_map_);
-
-    if (collide_with != std::dynamic_pointer_cast<Knight>(knight_.first)) {
-      if (collide_with->GetHp() <= 0) {
-        original_map_.erase(new_pos);
-        original_map_[new_pos] = obj.first;
-      }
-      if (obj.first->GetHp() <= 0) {
-        original_map_.erase(prev_pos);
-        original_map_[new_pos] = obj.first;
-      }
-    }
-    else {
-      obj.first->SetPosition(prev_pos);
-    }
-  }*/
+int Map::GetState() const {
+  return state_;
 }
 
 
